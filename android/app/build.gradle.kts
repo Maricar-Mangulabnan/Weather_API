@@ -1,6 +1,6 @@
 import java.util.Properties
 import java.io.FileInputStream
-import java.io.FileNotFoundException // ✅ Add this import
+import java.io.FileNotFoundException
 
 plugins {
     id("com.android.application")
@@ -21,11 +21,28 @@ android {
         versionName = flutter.versionName
     }
 
+    // Ensuring Java and Kotlin compatibility
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
+
+    kotlinOptions {
+        jvmTarget = "17"
+    }
+
+    // Use JVM Toolchain to avoid version mismatch issues
+    java {
+        toolchain {
+            languageVersion.set(JavaLanguageVersion.of(17))
+        }
+    }
+
     signingConfigs {
         create("release") {
             val keystorePropertiesFile = rootProject.file("app/key.properties")
             if (!keystorePropertiesFile.exists()) {
-                throw FileNotFoundException("ERROR: key.properties file not found. Please ensure it's available in the app directory.")
+                throw FileNotFoundException("ERROR: key.properties file not found. Ensure it's available in the app directory: android/app/key.properties")
             }
 
             val keystoreProperties = Properties().apply {
