@@ -41,20 +41,21 @@ android {
     signingConfigs {
         create("release") {
             val keystorePropertiesFile = rootProject.file("app/key.properties")
-            if (!keystorePropertiesFile.exists()) {
-                throw FileNotFoundException("ERROR: key.properties file not found. Ensure it's available in the app directory: android/app/key.properties")
-            }
+            if (keystorePropertiesFile.exists()) {
+                val keystoreProperties = Properties().apply {
+                    load(FileInputStream(keystorePropertiesFile))
+                }
 
-            val keystoreProperties = Properties().apply {
-                load(FileInputStream(keystorePropertiesFile))
+                storeFile = rootProject.file("app/upload-keystore.jks")
+                storePassword = keystoreProperties["storePassword"] as String
+                keyAlias = keystoreProperties["keyAlias"] as String
+                keyPassword = keystoreProperties["keyPassword"] as String
+            } else {
+                throw FileNotFoundException("ERROR: key.properties file not found. Ensure it's in the app directory.")
             }
-
-            storeFile = rootProject.file("app/upload-keystore.jks")
-            storePassword = keystoreProperties["storePassword"] as String
-            keyAlias = keystoreProperties["keyAlias"] as String
-            keyPassword = keystoreProperties["keyPassword"] as String
         }
     }
+
 
     buildTypes {
         release {
