@@ -9,12 +9,12 @@ plugins {
 }
 
 android {
-    namespace = "com.weatherapi.weatherapi_finals"
+    namespace = "com.example.weatherapi_finals"
     compileSdk = flutter.compileSdkVersion
     ndkVersion = flutter.ndkVersion
 
     defaultConfig {
-        applicationId = "com.weatherapi.weatherapi_finals"
+        applicationId = "com.example.weatherapi_finals"
         minSdk = flutter.minSdkVersion
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
@@ -32,6 +32,20 @@ android {
     }
 
     // Use JVM Toolchain to avoid version mismatch issues
+    java {
+        toolchain {
+            languageVersion.set(JavaLanguageVersion.of(17))
+        }
+    }
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
+
+    kotlinOptions {
+        jvmTarget = "17"
+    }
+
     java {
         toolchain {
             languageVersion.set(JavaLanguageVersion.of(17))
