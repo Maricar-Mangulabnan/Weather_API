@@ -1,5 +1,6 @@
 import java.util.Properties
 import java.io.FileInputStream
+import java.io.FileNotFoundException // ✅ Add this import
 
 plugins {
     id("com.android.application")
@@ -11,15 +12,6 @@ android {
     namespace = "com.weatherapi.weatherapi_finals"
     compileSdk = flutter.compileSdkVersion
     ndkVersion = flutter.ndkVersion
-
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
-    }
-
-    kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_11.toString()
-    }
 
     defaultConfig {
         applicationId = "com.weatherapi.weatherapi_finals"
