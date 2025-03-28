@@ -40,7 +40,7 @@ workflows:
         script: |
           gcloud auth activate-service-account --key-file=/tmp/google_play.json
           gcloud --quiet auth configure-docker
-          fastlane supply --track alpha --json-key /tmp/google_play.json --package_name com.example.weatherapi_finals --aab build/app/outputs/bundle/release/app-release.aab
+          fastlane supply --track alpha --json-key /tmp/google_play.json --package_name com.weatherapp.weatherapi_finals --aab build/app/outputs/bundle/release/app-release.aab
 
     artifacts:
       - build/app/outputs/flutter-apk/app-release.apk

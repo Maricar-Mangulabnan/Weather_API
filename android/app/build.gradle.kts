@@ -9,12 +9,12 @@ plugins {
 }
 
 android {
-    namespace = "com.example.weatherapi_finals"
+    namespace = "com.weatherapp.weatherapi_finals"
     compileSdk = flutter.compileSdkVersion
     ndkVersion = flutter.ndkVersion
 
     defaultConfig {
-        applicationId = "com.example.weatherapi_finals"
+        applicationId = "com.weatherapp.weatherapi_finals"
         minSdk = flutter.minSdkVersion
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
