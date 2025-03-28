@@ -7,7 +7,11 @@ class SettingsPage extends StatefulWidget {
   final String initialLocation;
   final bool isMetric;
 
-  const SettingsPage({required this.initialLocation, required this.isMetric});
+  const SettingsPage({
+    super.key,
+    required this.initialLocation,
+    required this.isMetric,
+  });
 
   @override
   State<SettingsPage> createState() => _SettingsPageState();
@@ -27,7 +31,8 @@ class _SettingsPageState extends State<SettingsPage> {
 
   Future<bool> _checkCityValid(String city) async {
     try {
-      final url = "https://api.openweathermap.org/data/2.5/weather?q=$city&appid=b565a0e5c08b8b96b4a12f1b993b26bd";
+      final url =
+          "https://api.openweathermap.org/data/2.5/weather?q=$city&appid=b565a0e5c08b8b96b4a12f1b993b26bd";
       final response = await http.get(Uri.parse(url));
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body);
@@ -65,22 +70,26 @@ class _SettingsPageState extends State<SettingsPage> {
                 } else {
                   showCupertinoDialog(
                     context: context,
-                    builder: (context) => CupertinoAlertDialog(
-                      title: Text('City Not Found'),
-                      content: Text('Please enter a valid city name.'),
-                      actions: [
-                        CupertinoDialogAction(
-                          child: Text('OK'),
-                          onPressed: () => Navigator.pop(context),
+                    builder:
+                        (context) => CupertinoAlertDialog(
+                          title: Text('City Not Found'),
+                          content: Text('Please enter a valid city name.'),
+                          actions: [
+                            CupertinoDialogAction(
+                              child: Text('OK'),
+                              onPressed: () => Navigator.pop(context),
+                            ),
+                          ],
                         ),
-                      ],
-                    ),
                   );
                 }
               },
             ),
             CupertinoDialogAction(
-              child: Text('Close', style: TextStyle(color: CupertinoColors.destructiveRed)),
+              child: Text(
+                'Close',
+                style: TextStyle(color: CupertinoColors.destructiveRed),
+              ),
               onPressed: () => Navigator.pop(context),
             ),
           ],
@@ -96,9 +105,7 @@ class _SettingsPageState extends State<SettingsPage> {
   void _showAboutPage() {
     Navigator.push(
       context,
-      CupertinoPageRoute(
-        builder: (context) => AboutPage(),
-      ),
+      CupertinoPageRoute(builder: (context) => AboutPage()),
     );
   }
 
@@ -109,8 +116,8 @@ class _SettingsPageState extends State<SettingsPage> {
         middle: Text('Settings'),
         trailing: CupertinoButton(
           padding: EdgeInsets.zero,
-          child: Text('Done'),
           onPressed: _onDone,
+          child: Text('Done'),
         ),
       ),
       child: SafeArea(
@@ -118,14 +125,23 @@ class _SettingsPageState extends State<SettingsPage> {
           children: [
             // Location Section
             CupertinoListTile(
-              leading: Icon(CupertinoIcons.location, color: CupertinoColors.activeOrange),
+              leading: Icon(
+                CupertinoIcons.location,
+                color: CupertinoColors.activeOrange,
+              ),
               title: Text('Location'),
               trailing: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Text(_locationName, style: TextStyle(color: CupertinoColors.systemGrey)),
+                  Text(
+                    _locationName,
+                    style: TextStyle(color: CupertinoColors.systemGrey),
+                  ),
                   SizedBox(width: 8),
-                  Icon(CupertinoIcons.chevron_forward, color: CupertinoColors.systemGrey2),
+                  Icon(
+                    CupertinoIcons.chevron_forward,
+                    color: CupertinoColors.systemGrey2,
+                  ),
                 ],
               ),
               onTap: _changeLocation,
@@ -133,7 +149,10 @@ class _SettingsPageState extends State<SettingsPage> {
 
             // Icon Section
             CupertinoListTile(
-              leading: Icon(CupertinoIcons.photo_fill_on_rectangle_fill, color: CupertinoColors.systemRed),
+              leading: Icon(
+                CupertinoIcons.photo_fill_on_rectangle_fill,
+                color: CupertinoColors.systemRed,
+              ),
               title: Text('Icon'),
               trailing: Row(
                 mainAxisSize: MainAxisSize.min,
@@ -147,7 +166,10 @@ class _SettingsPageState extends State<SettingsPage> {
                     ),
                   ),
                   SizedBox(width: 8),
-                  Icon(CupertinoIcons.chevron_forward, color: CupertinoColors.systemGrey2),
+                  Icon(
+                    CupertinoIcons.chevron_forward,
+                    color: CupertinoColors.systemGrey2,
+                  ),
                 ],
               ),
               onTap: () {},
@@ -155,7 +177,10 @@ class _SettingsPageState extends State<SettingsPage> {
 
             // Metric System Section
             CupertinoListTile(
-              leading: Icon(CupertinoIcons.speedometer, color: CupertinoColors.systemGreen),
+              leading: Icon(
+                CupertinoIcons.speedometer,
+                color: CupertinoColors.systemGreen,
+              ),
               title: Text('Metric System'),
               trailing: CupertinoSwitch(
                 value: _isMetric,
@@ -169,7 +194,10 @@ class _SettingsPageState extends State<SettingsPage> {
 
             // Light Mode Section
             CupertinoListTile(
-              leading: Icon(CupertinoIcons.sun_max_fill, color: CupertinoColors.systemYellow),
+              leading: Icon(
+                CupertinoIcons.sun_max_fill,
+                color: CupertinoColors.systemYellow,
+              ),
               title: Text('Light Mode'),
               trailing: CupertinoSwitch(
                 value: _isLightMode,
@@ -183,14 +211,23 @@ class _SettingsPageState extends State<SettingsPage> {
 
             // About Section
             CupertinoListTile(
-              leading: Icon(CupertinoIcons.info_circle_fill, color: CupertinoColors.activeBlue),
+              leading: Icon(
+                CupertinoIcons.info_circle_fill,
+                color: CupertinoColors.activeBlue,
+              ),
               title: Text('About'),
               trailing: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Text('Members', style: TextStyle(color: CupertinoColors.systemGrey)),
+                  Text(
+                    'Members',
+                    style: TextStyle(color: CupertinoColors.systemGrey),
+                  ),
                   SizedBox(width: 8),
-                  Icon(CupertinoIcons.chevron_forward, color: CupertinoColors.systemGrey2),
+                  Icon(
+                    CupertinoIcons.chevron_forward,
+                    color: CupertinoColors.systemGrey2,
+                  ),
                 ],
               ),
               onTap: _showAboutPage,
@@ -201,5 +238,3 @@ class _SettingsPageState extends State<SettingsPage> {
     );
   }
 }
-
-
