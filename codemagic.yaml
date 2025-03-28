@@ -2,21 +2,19 @@ workflows:
   flutter-ci:
     name: Flutter CI/CD
     max_build_duration: 60
-    instance_type: mac_mini_m1  # Use mac_mini_m1 for iOS builds
+    instance_type: mac_mini_m1 # Use mac_mini_m1 for iOS builds
     environment:
       flutter: stable
       xcode: latest
       cocoapods: default
       groups:
-        - signing_credentials  # Codemagic environment group for storing sensitive keystore data
+        - signing_credentials # Codemagic environment group for storing sensitive keystore data
     scripts:
       - name: Install Flutter dependencies
         script: flutter pub get
 
-
-      - - name: Decode Keystore File
+      - name: Decode Keystore File
       - script: echo $CM_KEYSTORE | base64 --decode > android/app/upload-keystore.jks
-
 
       - name: Create key.properties
         script: |
@@ -36,7 +34,6 @@ workflows:
 
       - - name: Decode Google Play JSON Key
       - script: echo $GOOGLE_PLAY_JSON | base64 --decode > /tmp/google_play.json
-
 
       - name: Upload to Google Play
       - script: |
