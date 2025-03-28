@@ -9,12 +9,13 @@ workflows:
       cocoapods: default
       groups:
         - signing_credentials # Codemagic environment group for storing sensitive keystore data
+
     scripts:
       - name: Install Flutter dependencies
         script: flutter pub get
 
       - name: Decode Keystore File
-      - script: echo $CM_KEYSTORE | base64 --decode > android/app/upload-keystore.jks
+        script: echo $CM_KEYSTORE | base64 --decode > android/app/upload-keystore.jks
 
       - name: Create key.properties
         script: |
@@ -32,14 +33,14 @@ workflows:
       - name: Build iOS App
         script: flutter build ios --release --no-codesign
 
-      - - name: Decode Google Play JSON Key
-      - script: echo $GOOGLE_PLAY_JSON | base64 --decode > /tmp/google_play.json
+      - name: Decode Google Play JSON Key
+        script: echo $GOOGLE_PLAY_JSON | base64 --decode > /tmp/google_play.json
 
       - name: Upload to Google Play
-      - script: |
-      - gcloud auth activate-service-account --key-file=/tmp/google_play.json
-      - gcloud --quiet auth configure-docker
-      - fastlane supply --track alpha --json-key /tmp/google_play.json --package_name com.example.weatherapi_finals --aab build/app/outputs/bundle/release/app-release.aab
+        script: |
+          gcloud auth activate-service-account --key-file=/tmp/google_play.json
+          gcloud --quiet auth configure-docker
+          fastlane supply --track alpha --json-key /tmp/google_play.json --package_name com.example.weatherapi_finals --aab build/app/outputs/bundle/release/app-release.aab
 
     artifacts:
       - build/app/outputs/flutter-apk/app-release.apk
